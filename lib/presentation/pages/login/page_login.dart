@@ -2,7 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:sizer/sizer.dart';
+import 'package:upwork_videocall/blocs/login/login_bloc.dart';
+import 'package:upwork_videocall/model/signin_signup/request/LoginRequestMessage.dart';
+import 'package:upwork_videocall/presentation/components/custom_snackbar.dart';
 import 'package:upwork_videocall/presentation/pages/login/page_register.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upwork_videocall/presentation/pages/page_home.dart';
 
 class PageLogin extends StatefulWidget {
   @override
@@ -14,6 +19,25 @@ class _PageLoginState extends State<PageLogin> {
 
   @override
   Widget build(BuildContext context) {
+    return BlocListener<LoginBloc, LoginState>(
+      listener: (context, state) {
+        if (state is LoginStateComplete) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              CupertinoPageRoute(
+                  builder: (context) =>
+                      PageHome(userInformation: state.response)),
+              (route) => false);
+        } else if (state is LoginStateFailed) {
+          CustomSnackbar.snacbarWithGet(
+              success: false, content: state.errorMessage);
+        }
+      },
+      child: buildScaffold(context),
+    );
+  }
+
+  Scaffold buildScaffold(BuildContext context) {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
@@ -64,9 +88,7 @@ class _PageLoginState extends State<PageLogin> {
 
   GestureDetector buildButton() {
     return GestureDetector(
-      onTap: () {
-        print(userName.toString() + "/" + password.toString());
-      },
+      onTap: () => loginEvent(),
       child: CircleAvatar(
         backgroundColor: Colors.black,
         radius: 10.w,
@@ -112,5 +134,14 @@ class _PageLoginState extends State<PageLogin> {
         ),
       ),
     );
+  }
+
+  void loginEvent() async {
+    if ((userName != null || userName != "") &&
+        (password != null || password != "")) {
+      LoginRequestMessage request =
+          LoginRequestMessage(username: userName, password: password);
+      context.read<LoginBloc>().login(request);
+    }
   }
 }

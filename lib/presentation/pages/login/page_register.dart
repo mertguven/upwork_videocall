@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'package:sizer/sizer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upwork_videocall/blocs/register/register_bloc.dart';
+import 'package:upwork_videocall/model/signin_signup/request/RegisterRequestMessage.dart';
+import 'package:upwork_videocall/presentation/components/custom_snackbar.dart';
 
 class PageRegister extends StatefulWidget {
   @override
@@ -29,7 +33,7 @@ class _PageRegisterState extends State<PageRegister> {
             Spacer(flex: 4),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Text("Login",
+              child: Text("Register",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
             ),
             buildTextFormField("Username"),
@@ -53,7 +57,7 @@ class _PageRegisterState extends State<PageRegister> {
           children: [
             TextSpan(text: "Do you have an account? "),
             TextSpan(
-                text: "Sign in", style: TextStyle(fontWeight: FontWeight.bold)),
+                text: "Sign up", style: TextStyle(fontWeight: FontWeight.bold)),
           ],
         ),
       ),
@@ -62,9 +66,7 @@ class _PageRegisterState extends State<PageRegister> {
 
   GestureDetector buildButton() {
     return GestureDetector(
-      onTap: () {
-        print(userName.toString() + "/" + password.toString());
-      },
+      onTap: () => registerEvent(),
       child: CircleAvatar(
         backgroundColor: Colors.black,
         radius: 10.w,
@@ -110,5 +112,22 @@ class _PageRegisterState extends State<PageRegister> {
         ),
       ),
     );
+  }
+
+  void registerEvent() async {
+    if ((userName != null || userName != "") &&
+        (password != null || password != "")) {
+      RegisterRequestMessage request =
+          RegisterRequestMessage(username: userName, password: password);
+      context.read<RegisterBloc>().register(request).then((value) {
+        if (value.success) {
+          Navigator.pop(context);
+          CustomSnackbar.snacbarWithGet(success: true, content: value.messages);
+        } else {
+          CustomSnackbar.snacbarWithGet(
+              success: false, content: value.messages);
+        }
+      });
+    }
   }
 }
