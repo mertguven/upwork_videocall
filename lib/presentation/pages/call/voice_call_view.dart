@@ -172,12 +172,12 @@ class _VoiceCallViewState extends State<VoiceCallView> {
             onPressed: _onToggleMute,
             child: Icon(
               muted ? Icons.mic_off : Icons.mic,
-              color: muted ? Colors.white : Colors.blueAccent,
-              size: 20.0,
+              color: muted ? Colors.white : Colors.brown,
+              size: 40.0,
             ),
             shape: CircleBorder(),
             elevation: 2.0,
-            fillColor: muted ? Colors.blueAccent : Colors.white,
+            fillColor: muted ? Colors.brown : Colors.white,
             padding: const EdgeInsets.all(12.0),
           ),
           RawMaterialButton(
@@ -247,42 +247,37 @@ class _VoiceCallViewState extends State<VoiceCallView> {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          stops: [0.1, 0.9],
-          colors: [
-            Color(0xFFD64565),
-            Color(0xffe08791),
-          ],
-        ),
+            colors: [Color(0xFFB8B3B3), Colors.white],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.4, 1]),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Spacer(flex: 3),
-          Text(
-            widget.response.username,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.5),
-          ),
-          Spacer(),
+          Spacer(flex: 4),
           Stack(
             alignment: Alignment.center,
             children: [
               CircleAvatar(
                 radius: MediaQuery.of(context).size.width / 3,
-                backgroundColor: Colors.white.withOpacity(0.05),
+                backgroundColor: Colors.brown.withOpacity(0.05),
               ),
               CircleAvatar(
                 radius: MediaQuery.of(context).size.width / 3.5,
-                backgroundColor: Colors.white.withOpacity(0.15),
+                backgroundColor: Colors.brown.withOpacity(0.15),
               ),
               CircleAvatar(
                 radius: MediaQuery.of(context).size.width / 4,
-                backgroundColor: Colors.white.withOpacity(0.25),
+                backgroundColor: Colors.brown.withOpacity(0.25),
+              ),
+              Text(
+                widget.response.username,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.5),
               ),
             ],
           ),

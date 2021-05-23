@@ -40,6 +40,7 @@ class CallBloc extends Bloc<CallEvent, CallState> {
         UserStatusChangeRequestMessage request =
             UserStatusChangeRequestMessage(status: "Idle");
         await HomeBloc().changeUserStatus(request);
+        searchCounter = 0;
         add(CallEventFailed());
       } else {
         searchCounter++;

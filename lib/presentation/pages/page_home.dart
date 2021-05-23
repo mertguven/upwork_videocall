@@ -29,7 +29,7 @@ class _PageHomeState extends State<PageHome> {
   }
 
   Future<void> _changeTheStatus() async {
-    var permissionStatus = await _handleMic(Permission.microphone);
+    var permissionStatus = await _handleMic();
     if (permissionStatus.isGranted) {
       UserStatusChangeRequestMessage request =
           UserStatusChangeRequestMessage(status: "Online");
@@ -64,7 +64,11 @@ class _PageHomeState extends State<PageHome> {
       backgroundColor: Colors.transparent,
       actions: [
         IconButton(
-            icon: Icon(PhosphorIcons.signOutBold),
+            icon: Icon(
+              PhosphorIcons.signOutBold,
+              size: 30,
+              color: Colors.brown,
+            ),
             onPressed: () => exitEvent()),
       ],
       centerTitle: true,
@@ -76,14 +80,10 @@ class _PageHomeState extends State<PageHome> {
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0.1, 0.9],
-            colors: [
-              Color(0xFFD64565),
-              Color(0xffe08791),
-            ],
-          ),
+              colors: [Color(0xFFB8B3B3), Colors.white],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.4, 1]),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +101,7 @@ class _PageHomeState extends State<PageHome> {
             Text(
               "Search",
               style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.brown,
                   fontSize: 26,
                   letterSpacing: 1,
                   fontWeight: FontWeight.bold),
@@ -109,7 +109,7 @@ class _PageHomeState extends State<PageHome> {
             Text(
               "and meet new people!",
               style: TextStyle(
-                  color: Colors.grey.shade300,
+                  color: Colors.brown.shade200,
                   fontSize: 18,
                   fontWeight: FontWeight.bold),
             ),
@@ -122,9 +122,17 @@ class _PageHomeState extends State<PageHome> {
         child: Lottie.asset("assets/animations/call.json"),
       );
 
-  Future<PermissionStatus> _handleMic(Permission permission) async {
-    final status = await permission.request();
-    print(status);
-    return status;
+  Future<PermissionStatus> _handleMic() async {
+    final microphoneStatus = await Permission.microphone.request();
+    if (microphoneStatus.isGranted) {
+      final cameraStatus = await Permission.camera.request();
+      if (cameraStatus.isGranted) {
+        return cameraStatus;
+      } else {
+        return PermissionStatus.denied;
+      }
+    } else {
+      return PermissionStatus.denied;
+    }
   }
 }

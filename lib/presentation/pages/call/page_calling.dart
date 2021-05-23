@@ -18,7 +18,6 @@ class _PageCallingState extends State<PageCalling> {
     super.initState();
     context.read<CallBloc>().add(CallEventInitial());
     context.read<CallBloc>().selectOnlineUser();
-    //searchOnlineUser();
   }
 
   @override
@@ -48,14 +47,10 @@ class _PageCallingState extends State<PageCalling> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0.1, 0.9],
-            colors: [
-              Color(0xFFD64565),
-              Color(0xffe08791),
-            ],
-          ),
+              colors: [Color(0xFFB8B3B3), Colors.white],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.4, 1]),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,7 +59,7 @@ class _PageCallingState extends State<PageCalling> {
             Text(
               "Aranıyor...",
               style: TextStyle(
-                  color: Theme.of(context).accentColor,
+                  color: Colors.brown,
                   fontSize: 25,
                   fontWeight: FontWeight.w500),
             ),

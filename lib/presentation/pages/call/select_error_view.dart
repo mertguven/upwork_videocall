@@ -32,11 +32,11 @@ class _SelectErrorViewState extends State<SelectErrorView> {
                   )),
               Spacer(),
               Text(
-                "Şu an tüm kullanıcılar meşgul",
+                "All users are currently busy",
                 style: TextStyle(
-                    color: Theme.of(context).accentColor,
+                    color: Colors.brown,
                     fontSize: 20,
-                    fontWeight: FontWeight.w500),
+                    fontWeight: FontWeight.bold),
               ),
               Spacer(),
               FractionallySizedBox(
@@ -44,11 +44,11 @@ class _SelectErrorViewState extends State<SelectErrorView> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 15),
-                    primary: Theme.of(context).accentColor,
+                    primary: Colors.brown,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                   ),
-                  child: Text("Tamam",
+                  child: Text("Close",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                   onPressed: () => goBackHomeView(context),

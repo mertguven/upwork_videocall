@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:upwork_videocall/blocs/home/home_bloc.dart';
 import 'package:upwork_videocall/model/call/SelectOnlineUserResponseMessage.dart';
+import 'package:upwork_videocall/presentation/pages/call/video_call.dart';
 import 'package:upwork_videocall/presentation/pages/call/voice_call_view.dart';
 import 'package:upwork_videocall/presentation/pages/page_home.dart';
 
@@ -44,14 +45,10 @@ class _ConnectingViewState extends State<ConnectingView>
           height: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              stops: [0.1, 0.9],
-              colors: [
-                Color(0xFFD64565),
-                Color(0xffe08791),
-              ],
-            ),
+                colors: [Color(0xFFB8B3B3), Colors.white],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0.4, 1]),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +57,7 @@ class _ConnectingViewState extends State<ConnectingView>
               Text(
                 widget.response.username,
                 style: TextStyle(
-                    color: Theme.of(context).accentColor,
+                    color: Colors.brown,
                     fontSize: 25,
                     fontWeight: FontWeight.w500),
               ),
@@ -72,7 +69,7 @@ class _ConnectingViewState extends State<ConnectingView>
               Text(
                 "Bağlanıyor...",
                 style: TextStyle(
-                    color: Theme.of(context).accentColor,
+                    color: Colors.brown.shade300,
                     fontSize: 25,
                     fontWeight: FontWeight.w500),
               ),
