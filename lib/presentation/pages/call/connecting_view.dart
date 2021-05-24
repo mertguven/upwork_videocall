@@ -4,7 +4,6 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:upwork_videocall/blocs/home/home_bloc.dart';
 import 'package:upwork_videocall/model/call/SelectOnlineUserResponseMessage.dart';
-import 'package:upwork_videocall/presentation/pages/call/video_call.dart';
 import 'package:upwork_videocall/presentation/pages/call/voice_call_view.dart';
 import 'package:upwork_videocall/presentation/pages/page_home.dart';
 

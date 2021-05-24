@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:upwork_videocall/blocs/home/home_bloc.dart';
 import 'package:upwork_videocall/model/call/SelectOnlineUserResponseMessage.dart';
-import 'package:upwork_videocall/model/home/request/UserStatusChangeRequestMessage.dart';
 import 'package:upwork_videocall/repositories/home/home_repository.dart';
 
 part 'call_event.dart';
@@ -36,17 +34,17 @@ class CallBloc extends Bloc<CallEvent, CallState> {
         (response.status == "Matching" || response.status == "Online")) {
       add(CallEventComplete(response));
     } else {
-      if (searchCounter > 5) {
-        UserStatusChangeRequestMessage request =
-            UserStatusChangeRequestMessage(status: "Idle");
-        await HomeBloc().changeUserStatus(request);
-        searchCounter = 0;
-        add(CallEventFailed());
-      } else {
-        searchCounter++;
-        Future.delayed(Duration(seconds: 1));
-        await selectOnlineUser();
-      }
+      //if (searchCounter > 5) {
+      //  UserStatusChangeRequestMessage request =
+      //      UserStatusChangeRequestMessage(status: "Idle");
+      //  await HomeBloc().changeUserStatus(request);
+      //  searchCounter = 0;
+      //  add(CallEventFailed());
+      //} else {
+      //  searchCounter++;
+      //  Future.delayed(Duration(seconds: 1));
+      await selectOnlineUser();
+      //}
     }
   }
 }
